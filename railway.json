@@ -1,0 +1,9 @@
+{
+  "$schema": "https://schema.railway.app/railpack-config.json",
+  "build": {
+    "cmd": "npm run build:railway"
+  },
+  "deploy": {
+    "cmd": "node server/dist/server.js"
+  }
+}
