@@ -1,0 +1,7 @@
+﻿[build]
+  command = "npm --prefix server install && npm --prefix client install && npm run build:server && npm run build:client"
+  publish = "client/dist"
+
+[build.environment]
+  NODE_ENV = "production"
+  NPM_FLAGS = "--legacy-peer-deps"
