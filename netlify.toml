@@ -1,4 +1,4 @@
-﻿[build]
+[build]
   command = "npm --prefix server install && npm --prefix client install && npm run build:server && npm run build:client"
   publish = "client/dist"
 
