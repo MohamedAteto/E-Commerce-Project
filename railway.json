@@ -1,9 +1,9 @@
 {
   "$schema": "https://schema.railway.app/railpack-config.json",
   "build": {
-    "cmd": "npm run build:railway"
+    "cmd": "npm run prisma:generate && npm run build"
   },
   "deploy": {
-    "cmd": "node server/dist/server.js"
+    "cmd": "npm start"
   }
 }
