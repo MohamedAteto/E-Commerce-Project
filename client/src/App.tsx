@@ -21,6 +21,7 @@ import { AdminProductsPage } from './pages/admin/AdminProductsPage';
 import { AdminOrdersPage } from './pages/admin/AdminOrdersPage';
 import { AdminCategoriesPage } from './pages/admin/AdminCategoriesPage';
 import { AdminUsersPage } from './pages/admin/AdminUsersPage';
+import { WelcomeSplashScreen } from './components/ui/WelcomeSplashScreen';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,6 +36,7 @@ const queryClient = new QueryClient({
 export const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
+      <WelcomeSplashScreen />
       <BrowserRouter>
         <Routes>
           {/* Customer Facing Routes */}

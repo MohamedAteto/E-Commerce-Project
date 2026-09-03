@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { useAuthStore } from '../../store/authStore';
 import { useCartStore } from '../../store/cartStore';
 
 export const Layout: React.FC = () => {
+  const location = useLocation();
   const { checkAuth, user, isInitialized } = useAuthStore();
   const { fetchCart } = useCartStore();
 
@@ -27,13 +28,15 @@ export const Layout: React.FC = () => {
     );
   }
 
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-1">
         <Outlet />
       </main>
-      <Footer />
+      {!isAuthPage && <Footer />}
     </div>
   );
 };
