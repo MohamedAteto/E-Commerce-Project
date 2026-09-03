@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ShoppingBag } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 
 export const WelcomeSplashScreen: React.FC = () => {
-  const [visible, setVisible] = useState(true);
-  const user = useAuthStore((state) => state.user);
+  const { user, welcomeVisible, dismissWelcome } = useAuthStore();
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setVisible(false), 2000);
+    if (!welcomeVisible) {
+      return;
+    }
+
+    const timer = window.setTimeout(dismissWelcome, 2000);
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [welcomeVisible, dismissWelcome]);
 
   const greeting = user?.firstName ? `Hello, ${user.firstName}` : 'Welcome to Nexus';
 
   return (
     <AnimatePresence>
-      {visible && (
+      {welcomeVisible && (
         <motion.div
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center select-none bg-slate-950"
           style={{ background: 'linear-gradient(135deg, #052e16 0%, #020617 65%, #064e3b 100%)' }}
@@ -24,7 +27,7 @@ export const WelcomeSplashScreen: React.FC = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.04 }}
           transition={{ duration: 0.7, ease: 'easeInOut' }}
-          onClick={() => setVisible(false)}
+          onClick={dismissWelcome}
         >
           <motion.div
             className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-brand-500 text-white shadow-2xl shadow-brand-500/30"
