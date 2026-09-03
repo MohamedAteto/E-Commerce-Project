@@ -4,6 +4,10 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('The demo seed is destructive and must not run in production.');
+  }
+
   console.log('🌱 Starting database seeding...');
 
   // 1. Clean existing data in correct FK dependency order

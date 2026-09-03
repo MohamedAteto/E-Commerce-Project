@@ -7,10 +7,11 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js",
+    "start": "prisma migrate deploy && node dist/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "prisma:generate": "prisma generate",
+    "prisma:migrate:deploy": "prisma migrate deploy",
     "prisma:migrate": "prisma migrate dev",
     "prisma:push": "prisma db push",
     "prisma:seed": "tsx prisma/seed.ts"
@@ -39,12 +40,12 @@
     "express": "^4.21.2",
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
+    "prisma": "6.4.1",
     "typescript": "^5.7.3",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@types/supertest": "^6.0.2",
-    "prisma": "6.4.1",
     "supertest": "^7.0.0",
     "tsx": "^4.19.3",
     "vitest": "^3.0.6"

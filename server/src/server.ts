@@ -3,9 +3,9 @@ import { env } from './config/env.js';
 
 const app = createApp();
 
-const server = app.listen(env.PORT, () => {
-  console.log(`🚀 E-Commerce API Server running in ${env.NODE_ENV} mode on http://localhost:${env.PORT}`);
-  console.log(`📡 Health check available at: http://localhost:${env.PORT}/api/health`);
+const server = app.listen(env.PORT, '0.0.0.0', () => {
+  console.log(`E-Commerce API Server running in ${env.NODE_ENV} mode on port ${env.PORT}`);
+  console.log(`Health check available at /api/health`);
 });
 
 // Graceful shutdown handling
