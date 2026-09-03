@@ -7,9 +7,11 @@ interface AuthState {
   isLoading: boolean;
   isInitialized: boolean;
   error: string | null;
+  welcomeVisible: boolean;
   checkAuth: () => Promise<void>;
   login: (credentials: { email: string; password: string }) => Promise<User>;
   register: (data: { firstName: string; lastName: string; email: string; password: string }) => Promise<User>;
+  dismissWelcome: () => void;
   logout: () => Promise<void>;
   clearError: () => void;
 }
@@ -19,6 +21,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   isLoading: false,
   isInitialized: false,
   error: null,
+  welcomeVisible: false,
 
   checkAuth: async () => {
     try {
@@ -35,7 +38,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({ isLoading: true, error: null });
       const res = await api.post('/auth/login', credentials);
       const user = res.data.data.user;
-      set({ user, isLoading: false });
+      set({ user, isLoading: false, welcomeVisible: true });
       return user;
     } catch (err: any) {
       set({ error: err.message || 'Login failed', isLoading: false });
@@ -48,7 +51,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({ isLoading: true, error: null });
       const res = await api.post('/auth/register', data);
       const user = res.data.data.user;
-      set({ user, isLoading: false });
+      set({ user, isLoading: false, welcomeVisible: true });
       return user;
     } catch (err: any) {
       set({ error: err.message || 'Registration failed', isLoading: false });
@@ -64,6 +67,8 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({ user: null });
     }
   },
+
+  dismissWelcome: () => set({ welcomeVisible: false }),
 
   clearError: () => set({ error: null }),
 }));
