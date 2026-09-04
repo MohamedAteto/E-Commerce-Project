@@ -8,6 +8,85 @@
   }
 }
 
+@layer components {
+  .search-field {
+    @apply relative w-full;
+  }
+
+  .search-field__input {
+    @apply block w-full rounded-2xl border border-slate-200/80 bg-slate-100/90 py-3 pl-11 pr-10 text-xs text-slate-900 shadow-sm outline-none transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/10;
+  }
+
+  .search-field__icon {
+    @apply pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors;
+  }
+
+  .search-field:focus-within .search-field__icon {
+    @apply text-brand-600;
+  }
+
+  .search-field__clear {
+    @apply absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-400 transition-colors hover:bg-slate-200 hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-500/30;
+  }
+
+  .footer-feature-icon {
+    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-brand-400 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm;
+  }
+
+  .add-to-cart-button {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl text-sm font-bold shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:ring-offset-2 active:scale-[0.98] disabled:cursor-not-allowed;
+  }
+
+  .add-to-cart-button::before {
+    content: '';
+    @apply absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-white/20 transition-transform duration-500;
+  }
+
+  .add-to-cart-button:hover::before {
+    @apply translate-x-[450%];
+  }
+
+  .add-to-cart-button--compact {
+    @apply px-5 py-3;
+  }
+
+  .add-to-cart-button--wide {
+    @apply w-full px-6 py-3.5;
+  }
+
+  .add-to-cart-button--primary {
+    @apply bg-brand-600 text-white shadow-brand-500/25 hover:bg-brand-500;
+  }
+
+  .add-to-cart-button--success {
+    @apply bg-emerald-600 text-white shadow-emerald-500/25;
+  }
+
+  .add-to-cart-button--disabled {
+    @apply bg-slate-100 text-slate-400 shadow-none;
+  }
+
+  .home-primary-action {
+    @apply relative overflow-hidden bg-brand-600 text-white shadow-lg shadow-brand-500/25 transition-all hover:-translate-y-0.5 hover:bg-brand-500 hover:shadow-brand-500/40 active:translate-y-0 active:scale-95;
+  }
+
+  .subscribe-button {
+    @apply relative overflow-hidden bg-brand-600 text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-brand-500 hover:shadow-brand-500/25 active:translate-y-0 active:scale-95;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .add-to-cart-button,
+    .home-primary-action,
+    .subscribe-button {
+      @apply transition-none;
+    }
+
+    .add-to-cart-button::before {
+      @apply hidden;
+    }
+  }
+}
+
 /* Custom scrollbars for clean UI */
 ::-webkit-scrollbar {
   width: 8px;

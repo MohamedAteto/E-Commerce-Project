@@ -78,10 +78,10 @@ export const HomePage: React.FC = () => {
             <div className="flex flex-wrap gap-4 pt-2">
               <Link
                 to="/products"
-                className="px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm flex items-center gap-2 shadow-lg shadow-brand-500/25 transition-all active:scale-95 cursor-pointer backdrop-blur-xs"
+                className="home-primary-action group px-6 py-3.5 rounded-xl font-semibold text-sm flex items-center gap-2 cursor-pointer backdrop-blur-xs"
               >
                 <span>Browse All Products</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/products?categoryId=audio-sound"

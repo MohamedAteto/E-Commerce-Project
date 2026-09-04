@@ -7,7 +7,8 @@ import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Skeleton } from '../../components/ui/Skeleton';
-import { Plus, Edit2, Trash2, Search, Package, AlertTriangle } from 'lucide-react';
+import { Plus, Edit2, Trash2, AlertTriangle } from 'lucide-react';
+import { SearchField } from '../../components/ui/SearchField';
 
 export const AdminProductsPage: React.FC = () => {
   const queryClient = useQueryClient();
@@ -162,16 +163,15 @@ export const AdminProductsPage: React.FC = () => {
 
       {/* Search Filter */}
       <div className="flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-200/80">
-        <div className="relative flex-1 max-w-md">
-          <input
-            type="text"
-            placeholder="Search by product name..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-brand-500 outline-none"
-          />
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-        </div>
+        <SearchField
+          type="text"
+          placeholder="Search by product name..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onClear={() => setSearchTerm('')}
+          aria-label="Search products by name"
+          className="flex-1 max-w-md"
+        />
       </div>
 
       {/* Products Table */}
