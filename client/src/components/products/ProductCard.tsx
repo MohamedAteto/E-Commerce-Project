@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Check } from 'lucide-react';
 import { Product } from '../../types';
 import { useCartStore } from '../../store/cartStore';
 import { useAuthStore } from '../../store/authStore';
 import { Badge } from '../ui/Badge';
+import { AddToCartButton } from './AddToCartButton';
 
 interface ProductCardProps {
   product: Product;
@@ -98,27 +98,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </span>
           </div>
 
-          <button
+          <AddToCartButton
             onClick={handleAddToCart}
-            disabled={isOutOfStock || isAdding}
-            className={`px-5 py-3 rounded-2xl text-sm font-bold flex items-center gap-2 transition-all shadow-md cursor-pointer ${
-              justAdded
-                ? 'bg-emerald-600 text-white shadow-emerald-500/25'
-                : isOutOfStock
-                ? 'bg-slate-100 text-slate-400 cursor-not-allowed shadow-none'
-                : 'bg-brand-600 hover:bg-brand-500 text-white shadow-brand-500/25 active:scale-95'
-            }`}
-          >
-            {justAdded ? (
-              <>
-                <Check className="w-4 h-4" /> Added
-              </>
-            ) : (
-              <>
-                <ShoppingBag className="w-4 h-4" /> {isOutOfStock ? 'Sold Out' : 'Add to Cart'}
-              </>
-            )}
-          </button>
+            isAdding={isAdding}
+            justAdded={justAdded}
+            isOutOfStock={isOutOfStock}
+            compact
+          />
         </div>
       </div>
     </div>

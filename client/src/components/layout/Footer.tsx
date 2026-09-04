@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ShoppingBag,
@@ -9,6 +9,16 @@ import {
 } from 'lucide-react';
 
 export const Footer: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleSubscribe = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!email.trim()) return;
+    setIsSubscribed(true);
+    setEmail('');
+  };
+
   return (
     <footer className="bg-slate-900 text-slate-400 text-sm mt-20 border-t border-slate-800">
       {/* Guarantees Bar */}
@@ -16,7 +26,7 @@ export const Footer: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left">
             <div className="flex items-center gap-4 justify-center md:justify-start">
-              <div className="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center shrink-0">
+              <div className="footer-feature-icon">
                 <Truck className="w-6 h-6" />
               </div>
               <div>
@@ -26,7 +36,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-4 justify-center md:justify-start">
-              <div className="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center shrink-0">
+              <div className="footer-feature-icon">
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <div>
@@ -36,7 +46,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-4 justify-center md:justify-start">
-              <div className="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center shrink-0">
+              <div className="footer-feature-icon">
                 <RotateCcw className="w-6 h-6" />
               </div>
               <div>
@@ -46,7 +56,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-4 justify-center md:justify-start">
-              <div className="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center shrink-0">
+              <div className="footer-feature-icon">
                 <Headphones className="w-6 h-6" />
               </div>
               <div>
@@ -94,16 +104,23 @@ export const Footer: React.FC = () => {
           <div>
             <h5 className="font-semibold text-white mb-4">Newsletter</h5>
             <p className="text-xs mb-3 text-slate-400">Get early access to exclusive drops and tech hardware updates.</p>
-            <div className="flex gap-2">
+            <form className="flex gap-2" onSubmit={handleSubscribe}>
               <input
                 type="email"
                 placeholder="Enter email address"
-                className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 flex-1"
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                  setIsSubscribed(false);
+                }}
+                aria-label="Email address for newsletter"
+                className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 flex-1 min-w-0"
               />
-              <button className="bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer">
-                Subscribe
+              <button type="submit" className="subscribe-button text-xs font-semibold px-3 py-2 rounded-lg cursor-pointer">
+                {isSubscribed ? 'Subscribed' : 'Subscribe'}
               </button>
-            </div>
+            </form>
+            {isSubscribed && <p className="text-[11px] text-brand-400 mt-2" role="status">Thanks — you’re on the list.</p>}
           </div>
         </div>
 

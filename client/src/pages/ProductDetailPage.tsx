@@ -8,8 +8,6 @@ import { useAuthStore } from '../store/authStore';
 import { Badge } from '../components/ui/Badge';
 import { Skeleton } from '../components/ui/Skeleton';
 import {
-  ShoppingBag,
-  Check,
   ShieldCheck,
   Truck,
   RotateCcw,
@@ -17,6 +15,7 @@ import {
   Plus,
   ArrowLeft,
 } from 'lucide-react';
+import { AddToCartButton } from '../components/products/AddToCartButton';
 
 export const ProductDetailPage: React.FC = () => {
   const { idOrSlug } = useParams<{ idOrSlug: string }>();
@@ -202,27 +201,13 @@ export const ProductDetailPage: React.FC = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <button
+              <AddToCartButton
                 onClick={handleAddToCart}
-                disabled={isOutOfStock || isAdding}
-                className={`flex-1 py-3.5 px-6 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-md transition-all active:scale-[0.99] cursor-pointer ${
-                  justAdded
-                    ? 'bg-emerald-600 text-white'
-                    : isOutOfStock
-                    ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
-                    : 'bg-brand-600 hover:bg-brand-700 text-white shadow-brand-500/20'
-                }`}
-              >
-                {justAdded ? (
-                  <>
-                    <Check className="w-5 h-5" /> Added to Cart!
-                  </>
-                ) : (
-                  <>
-                    <ShoppingBag className="w-5 h-5" /> {isOutOfStock ? 'Sold Out' : `Add ${quantity} to Cart`}
-                  </>
-                )}
-              </button>
+                isAdding={isAdding}
+                justAdded={justAdded}
+                isOutOfStock={isOutOfStock}
+                quantityLabel={`Add ${quantity} to Cart`}
+              />
             </div>
           </div>
 

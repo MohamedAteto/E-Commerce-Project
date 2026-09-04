@@ -3,8 +3,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {
   ShoppingBag,
-  Search,
-  User as UserIcon,
   Menu,
   X,
   Shield,
@@ -25,6 +23,7 @@ import { api } from '../../services/api';
 import { Category } from '../../types';
 import { useAuthStore } from '../../store/authStore';
 import { useCartStore } from '../../store/cartStore';
+import { SearchField } from '../ui/SearchField';
 
 export const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -150,26 +149,14 @@ export const Navbar: React.FC = () => {
             onSubmit={handleSearchSubmit}
             className="hidden md:flex flex-1 max-w-md relative items-center"
           >
-            <div className="relative w-full group">
-              <input
-                type="text"
-                placeholder="Search studio headphones, titanium bio-wearables, laptops..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-9 py-2.5 text-xs bg-slate-100/90 border border-slate-200/80 rounded-full focus:bg-white focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15 transition-all outline-none text-slate-900 placeholder:text-slate-400"
-              />
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 group-focus-within:text-brand-600 transition-colors pointer-events-none" />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-200/70 transition-colors cursor-pointer"
-                  aria-label="Clear search"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              )}
-            </div>
+            <SearchField
+              type="text"
+              placeholder="Search studio headphones, titanium bio-wearables, laptops..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onClear={() => setSearchQuery('')}
+              aria-label="Search products"
+            />
           </form>
 
           {/* 3. Primary Navigation Menu (Desktop) */}
@@ -427,16 +414,14 @@ export const Navbar: React.FC = () => {
           <div className="lg:hidden mt-3 py-4 border-t border-slate-100 space-y-4 animate-slide-down">
             {/* Mobile Search Form */}
             <form onSubmit={handleSearchSubmit}>
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 text-xs bg-slate-100 border border-slate-200 rounded-xl outline-none focus:bg-white focus:ring-2 focus:ring-brand-500"
-                />
-                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              </div>
+              <SearchField
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onClear={() => setSearchQuery('')}
+                aria-label="Search products"
+              />
             </form>
 
             {/* Mobile Nav Links */}
